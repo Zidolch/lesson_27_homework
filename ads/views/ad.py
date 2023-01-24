@@ -112,18 +112,18 @@ class AdUpdateView(UpdateView):
         ad_data = json.loads(request.body)
 
         if 'name' in ad_data:
-            self.object.name = ad_data['name'],
+            self.object.name = ad_data['name']
         if 'author' in ad_data:
-            author = get_object_or_404(User, pk=ad_data['author'])
-            self.object.author = author,
+            author = get_object_or_404(User, pk=ad_data['author_id'])
+            self.object.author = author
         if 'price' in ad_data:
-            self.object.price = ad_data['price'],
+            self.object.price = ad_data['price']
         if 'description' in ad_data:
-            self.object.description = ad_data['description'],
+            self.object.description = ad_data['description']
         if 'is_published' in ad_data:
-            self.object.is_published = ad_data['is_published'],
+            self.object.is_published = ad_data['is_published']
         if 'category' in ad_data:
-            category = get_object_or_404(Category, pk=ad_data['category'])
+            category = get_object_or_404(Category, pk=ad_data['category_id'])
             self.object.category = category
 
         try:
@@ -140,7 +140,7 @@ class AdUpdateView(UpdateView):
             'description': self.object.description,
             'address': [location.name for location in self.object.author.locations.all()],
             'is_published': self.object.is_published,
-            'category_id': self.object.category.name,
+            'category': self.object.category.name,
             'image': self.object.image.url if self.object.image else None,
         }, status=201)
 
