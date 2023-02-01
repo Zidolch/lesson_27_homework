@@ -43,6 +43,10 @@ class UserCreateSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         new_user = User.objects.create(**validated_data)
+
+        new_user.set_password(validated_data['password'])
+        new_user.save()
+
         for loc in self._locations:
             location, _ = Location.objects.get_or_create(name=loc)
             new_user.locations.add(location)
@@ -50,7 +54,7 @@ class UserCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        exclude = ['password']
+        fields = '__all__'
 
 
 class UserUpdateSerializer(serializers.ModelSerializer):
