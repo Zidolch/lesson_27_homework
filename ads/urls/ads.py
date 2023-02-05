@@ -2,7 +2,7 @@ from django.conf.urls.static import static
 from django.urls import path
 
 from ads.views.ad import *
-from lesson_30_homework import settings
+from lesson_31_homework import settings
 
 urlpatterns = [
     # path('', AdListView.as_view()),

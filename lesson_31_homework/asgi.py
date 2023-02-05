@@ -1,5 +1,5 @@
 """
-ASGI config for lesson_30_homework project.
+ASGI config for lesson_31_homework project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'lesson_30_homework.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'lesson_31_homework.settings')
 
 application = get_asgi_application()

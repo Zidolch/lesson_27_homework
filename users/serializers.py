@@ -1,6 +1,11 @@
+from django.core.validators import RegexValidator
 from rest_framework import serializers
+from rest_framework.validators import UniqueValidator
 
 from users.models import User, Location
+from users.validators import IsAgeBigEnough
+
+MIN_USER_AGE = 9
 
 
 class UserDetailSerializer(serializers.ModelSerializer):
@@ -36,6 +41,12 @@ class UserCreateSerializer(serializers.ModelSerializer):
         slug_field='name',
         queryset=Location.objects.all(),
     )
+
+    email = serializers.CharField(validators=[UniqueValidator(queryset=User.objects.all()),
+                                              RegexValidator(regex="@rambler.ru", inverse_match=True,
+                                                             message='Недопустимый домен.')])
+
+    birth_date = serializers.DateField(validators=[IsAgeBigEnough(MIN_USER_AGE)])
 
     def is_valid(self, *, raise_exception=False):
         self._locations = self.initial_data.pop('locations', [])

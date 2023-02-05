@@ -1,4 +1,4 @@
-"""lesson_30_homework URL Configuration
+"""lesson_31_homework URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.1/topics/http/urls/
@@ -19,7 +19,7 @@ from django.urls import path, include
 
 from ads.views.ad import AdViewSet
 from ads.views.selection import SelectionViewSet
-from lesson_30_homework import settings
+from lesson_31_homework import settings
 from rest_framework import routers
 
 from users.views import LocationViewSet

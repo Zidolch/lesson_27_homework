@@ -15,6 +15,7 @@ class AdViewSet(ModelViewSet):
     serializer_classes = {
         'list': AdListSerializer,
         'retrieve': AdDetailSerializer,
+        'create': AdCreateSerializer,
     }
 
     default_permission = [AllowAny()]

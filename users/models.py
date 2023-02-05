@@ -24,25 +24,12 @@ class UserRoles(models.TextChoices):
 
 class User(AbstractUser):
     role = models.CharField(max_length=10, choices=UserRoles.choices)
-    age = models.PositiveSmallIntegerField()
+    age = models.PositiveSmallIntegerField(null=True, blank=True)
+    birth_date = models.DateField(null=True, blank=True)
+    email = models.EmailField(null=True, blank=True, max_length=50)
     locations = models.ManyToManyField(Location)
 
     def __str__(self):
         return self.username
 
-# class User(models.Model):
-#     first_name = models.CharField(max_length=200, null=True)
-#     last_name = models.CharField(max_length=200, null=True)
-#     username = models.CharField(max_length=200, unique=True)
-#     password = models.CharField(max_length=200)
-#     role = models.CharField(max_length=10, choices=UserRoles.choices)
-#     age = models.PositiveSmallIntegerField()
-#     locations = models.ManyToManyField(Location)
-#
-#     class Meta:
-#         ordering = ['username']
-#         verbose_name = 'Пользователь'
-#         verbose_name_plural = 'Пользователи'
-#
-#     def __str__(self):
-#         return self.username
+

@@ -21,6 +21,7 @@ class CategoryDetailView(DetailView):
         return JsonResponse({
             'id': category.id,
             'name': category.name,
+            'slug': category.slug,
             })
 
 
@@ -32,7 +33,10 @@ class CategoryListView(ListView):
         super().get(request, *args, **kwargs)
         self.object_list = self.object_list.order_by('name')
 
-        return JsonResponse(data=[{"id": category.id, "name": category.name} for category in self.object_list],
+        return JsonResponse(data=[{"id": category.id,
+                                   "name": category.name,
+                                   'slug': category.slug}
+                            for category in self.object_list],
                             safe=False)
 
 
@@ -44,11 +48,12 @@ class CategoryCreateView(CreateView):
     def post(self, request, *args, **kwargs):
         category_data = json.loads(request.body)
 
-        new_category = Category.objects.create(name=category_data["name"])
+        new_category = Category.objects.create(name=category_data["name"], slug=category_data["slug"])
 
         return JsonResponse({
             "id": new_category.id,
             "name": new_category.name,
+            'slug': new_category.slug,
         }, status=201)
 
 
@@ -62,6 +67,7 @@ class CategoryUpdateView(UpdateView):
         category_data = json.loads(request.body)
 
         self.object.name = category_data['name']
+        self.object.slug = category_data['slug']
 
         try:
             self.object.full_clean()
@@ -72,6 +78,7 @@ class CategoryUpdateView(UpdateView):
         return JsonResponse({
             "id": self.object.id,
             "name": self.object.name,
+            "slug": self.object.slug,
         })
 
 
@@ -82,4 +89,4 @@ class CategoryDeleteView(DeleteView):
 
     def delete(self, request, *args, **kwargs):
         super().delete(request, *args, **kwargs)
-        return JsonResponse({"status": "ok"}, status=200)
+        return JsonResponse({"status": "ok"}, status=204)
