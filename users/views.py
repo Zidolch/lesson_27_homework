@@ -28,7 +28,7 @@ class UserDetailView(DetailView):
             'last_name': user.last_name,
             'username': user.username,
             'age': user.age,
-            'locations': [location.name for location in user.locations.all()],
+            'locations': [location.name for location in user.location_id.all()],
             'total_ads': user.ad_set.filter(is_published=True).count(),
             })
 

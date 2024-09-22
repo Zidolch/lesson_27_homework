@@ -28,7 +28,7 @@ class User(models.Model):
     password = models.CharField(max_length=200)
     role = models.CharField(max_length=10, choices=UserRoles.choices)
     age = models.PositiveSmallIntegerField()
-    locations = models.ManyToManyField(Location)
+    location_id = models.ManyToManyField(Location)
 
     class Meta:
         ordering = ['username']
